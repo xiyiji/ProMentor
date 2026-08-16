@@ -25,4 +25,4 @@ release:
 	bash pack-release.sh
 
 clean:
-	rm -rf skills/promentor/dashboard dsh-plugin/dist release
+	rm -rf skills/promentor/dashboard skills/promentor-zh/dashboard dsh-plugin/dist release

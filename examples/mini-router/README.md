@@ -1,5 +1,7 @@
 # Golden course: mini-router
 
+[English](../mini-router-en)
+
 这是 ProMentor 的**示范课**。一个不到 200 行的 Python HTTP 路由器，配有手写的五章讲义、Lab、行为测试和学生脚手架。
 
 它同时是质量标尺：以后 `/promentor init` 生成的课，至少要达到这一课的完整度——讲义讲设计决策、测试能跑、空实现失败、参考实现通过。

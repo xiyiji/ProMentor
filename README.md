@@ -1,191 +1,189 @@
 # ProMentor
 
-> 把任意开源项目转成 MIT 风格的动手工程课程 在实践中学习
+[中文](README.zh.md)
 
-ProMentor 是一个 **AI Coding Agent Skill**。装上它，你的 AI 编程助手立刻化身为导师——扫描项目架构、生成阶梯式 Chapter、带你手写核心逻辑、自动判题、AI Code Review。
+> Turn any open-source project into an MIT-style hands-on engineering course.
 
-**学的不是算法题，是一个真实系统的架构设计能力。**
+ProMentor is an **AI coding-agent skill**. Once installed, your assistant becomes a mentor: it scans the architecture, writes a leveled chapter plan, walks you through the core logic, grades your labs, and reviews your code against the original design.
 
-## 示范课
+**You are not grinding algorithm puzzles. You are learning how a real system is designed.**
 
-仓库里有一门手写的完整课程，用来示范「好课长什么样」，也当作生成质量的标尺：
+Two parallel skills: [`skills/promentor`](skills/promentor) (English) and [`skills/promentor-zh`](skills/promentor-zh) (中文). Install one.
 
-[`examples/mini-router`](examples/mini-router) — 一个不到 200 行的 Python HTTP 路由器（静态路由、`:param`、通配符、中间件），五章讲义 + Lab + 行为测试 + 学生脚手架。
+## Golden course
 
-![示范课怎么学](examples/mini-router/docs/learning-loop.png)
+The repo ships a hand-written course that also serves as the quality bar: [`examples/mini-router-en`](examples/mini-router-en). A Python HTTP router under 200 lines (static routes, `:param`, wildcards, middleware), with five lectures, labs, behavior tests, and student stubs.
 
-![课程总览](examples/mini-router/docs/course-overview.png)
+![How to take the course](examples/mini-router-en/docs/learning-loop.png)
+
+![Course overview](examples/mini-router-en/docs/course-overview.png)
 
 ```bash
-cd examples/mini-router
-python3 validate_course.py          # 空实现必须失败，参考实现必须通过
+cd examples/mini-router-en
+python3 validate_course.py          # stubs must fail; reference must pass
 python3 .promentor/chapters/ch01-static-routes/lab_test.py
 ```
 
-在支持 `/promentor` 的 Agent 里打开 `examples/mini-router`，然后 `/promentor learn ch01`。更多截图见 [示范课 README](examples/mini-router)。
+Open that directory in an agent that supports `/promentor`, then `/promentor learn ch01`. More screenshots: [English course README](examples/mini-router-en).
 
-## 安装
+## Install
 
-### DSH Web GUI 内置 Dashboard（非DeepSeek Harness不需要看）
+### DSH Web GUI dashboard (skip if you are not on DeepSeek Harness)
 
-> 只有 DSH 需要本小节：它的 Dashboard 是 **GUI 内置插件**（Codex / Claude Code
-> 等其他 Agent 的技能包自带静态网页，跳过本小节）。插件预构建产物随 Release 包
-> 分发，仓库本身不含构建产物。
+> DSH only: its dashboard is a **built-in GUI plugin** (Codex / Claude Code and other agents ship a static page with the skill — skip this section). Prebuilt plugin artifacts ship in the Release zip; this repo does not store them.
 
-**安装（一条命令）**
+**Install (one command)**
 
 ```bash
-# 方式 A（推荐）：下载 Release 的 promentor.zip 并解压
-cd <解压目录>/promentor
+# A (recommended): unzip the Release promentor.zip
+cd <unzip-dir>/promentor
 bash dsh-plugin/install.sh
 
-# 方式 B（源码）：clone 本仓库后先 make build
+# B (from source): clone this repo, then make build
 cd /path/to/ProMentor
 bash dsh-plugin/install.sh
 ```
 
-- 卸载：`bash dsh-plugin/uninstall.sh`
+- Uninstall: `bash dsh-plugin/uninstall.sh`
 
-### 从release下载zip
+### From the Release zip
 
-1. 前往 [Releases](https://github.com/xiyiji/ProMentor/releases) 下载最新 `promentor.zip`
+1. Download the latest `promentor.zip` from [Releases](https://github.com/xiyiji/ProMentor/releases)
 
-2. 解压后把 `promentor/` 放到 `.{YourAgent}/skills/`
+2. Put **one** skill folder in `.{YourAgent}/skills/`:
+   - `promentor/` — English
+   - `promentor-zh/` — 中文
 
-## 使用
+Do not install both. They are parallel skills; pick the language you want the mentor to teach in.
 
-在 DSH（DeepSeek Harness）、Codex、Claude Code 等支持 `/promentor` 命令的 AI 编程助手中打开你的项目，然后：
+## Usage
 
-### 1. 生成课程
+Open your project in DSH (DeepSeek Harness), Codex, Claude Code, or any agent that supports `/promentor`, then:
+
+### 1. Generate the course
 
 ```
 /promentor init
 ```
 
-AI 自动扫描你的项目，分析架构，生成课程大纲。你确认后，逐 Chapter 生成讲义、Lab、行为测试。
+The agent scans the project, proposes an outline, and after you confirm, writes lectures, labs, and behavior tests chapter by chapter.
 
-### 2. 学习
+### 2. Learn
 
 ```
 /promentor learn ch01
 ```
 
-AI 讲解讲义、带你读标注过的源码、引导你手写核心逻辑。
+The agent teaches from the lecture, walks the annotated source, and points you at the interface you must implement.
 
-### 3. 测试
+### 3. Test
 
 ```
 /promentor test
 ```
 
-AI 运行行为测试，告诉你哪些通过了、哪些失败了、为什么。
+The agent runs the behavior tests and tells you what passed, what failed, and why.
 
-### 4. 获取提示
+### 4. Hint
 
 ```
 /promentor hint
 ```
 
-AI 读了你的代码和测试结果，给你**针对当前错误的、分层的**提示。从方向到思路，不直接给答案。
+The agent reads your code and the latest failures and gives **layered hints for this error**. Direction first, then approach — never the full answer.
 
-### 5. 提交
+### 5. Submit
 
 ```
 /promentor submit
 ```
 
-全量测试 + 锁定成绩。代码保存到提交历史。
+Full test run + locked score. Your code is copied into the submission history.
 
-### 6. AI Code Review
+### 6. AI code review
 
 ```
 /promentor review
 ```
 
-AI 对比你的实现 vs 原始源码，解释设计决策、"为什么这样做"、你可以如何改进。
+The agent diffs your implementation against the original source and explains the design decisions — why they did it that way, and how you could improve.
 
-### 7. 查看进度
+### 7. Progress
 
 ```
-/promentor         # 课程面板
-/promentor progress # 详细进度
+/promentor          # course panel
+/promentor progress # detailed progress
 ```
 
-### 8. 查看仪表盘（网页 Dashboard）
+### 8. Dashboard
 
 ```
 /promentor dashboard
 ```
 
-**DSH Web GUI 内置面板（推荐）**：点击会话输入框上方的 `ProMentor` 按钮，
-面板跟随当前会话的工作目录，直接读取 `.promentor/` 课程数据——无需任何本地服务。
-安装教程见上方 **① DSH Web GUI 内置 Dashboard**（一条命令 `bash dsh-plugin/install.sh`）。
+**DSH Web GUI panel (preferred):** click the `ProMentor` button above the composer. The panel follows the current session workspace and reads `.promentor/` — no local server. Install: **DSH Web GUI dashboard** above (`bash dsh-plugin/install.sh`).
 
-**独立仪表盘（备用，供 Codex / Claude Code 等）**：自动读取 `.promentor/` 下生成的课程数据，浏览器网页与 Agent 对话双通道查看。
+**Standalone dashboard (fallback for Codex / Claude Code):** reads `.promentor/` and opens a browser page next to the agent chat.
 
-**功能**
+**What you get**
 
-- 主页概览：总体完成度、当前学习章节、已完成/学习中/未开始统计、每章状态/分数/尝试次数、内容完整性警告
-- 章节独立页面：`/dashboard/chapters/<chapter_id>/` 直达任意章节，可刷新、可分享
-- 左侧边栏：一键切换讲义（Lecture）与源码导读（Source）
-- 主题切换：右上角按钮在浅色/深色模式间切换
-- Markdown 增强渲染：代码语法高亮、Mermaid 图、数学公式、CJK 排版（Streamdown）
+- Home: overall completion, current chapter, completed / in-progress / not-started counts, per-chapter status / score / attempts, missing-content warnings
+- Chapter pages: `/dashboard/chapters/<chapter_id>/`, refreshable and shareable
+- Sidebar: switch Lecture and Source
+- Theme toggle in the top right
+- Markdown with syntax highlighting, Mermaid, math, and CJK layout (Streamdown)
 
-**自动启动**
+**Auto-open**
 
-`/promentor init` 结束与 `/promentor learn <ch>` 开始时，会提示打开 GUI 内置面板
-（插件未安装时自动启动独立仪表盘并输出访问地址）。
+After `/promentor init` and at the start of `/promentor learn <ch>`, the agent tells you to open the GUI panel (or starts the standalone dashboard and prints the URL if the plugin is missing).
 
-**架构**
+**Architecture**
 
-- DSH 插件模式：host 数据网关（`packages/host/promentor`）+ GUI 面板
-  （`packages/client/ui-promentor`），位于 deepseek-harness 仓库，本仓库 `dsh-plugin/`
-  目录负责注册（`install.sh` / `uninstall.sh`）
-- 独立服务模式（备用）：全局单进程，重复启动复用已有进程；网页只存在于技能包
-  `dashboard/` 内，不复制到项目目录；服务启动时读取项目根目录的 `.promentor/` 数据
+- DSH plugin: host data gateway (`packages/host/promentor`) + GUI panel (`packages/client/ui-promentor`) in the deepseek-harness repo; this repo's `dsh-plugin/` registers them (`install.sh` / `uninstall.sh`)
+- Standalone fallback: one global process, reused on repeat start; the page lives only inside the skill's `dashboard/` and is never copied into the project; the server reads `.promentor/` from the project root
 
-使用方式（备用模式）：
+Fallback usage:
 
 ```
 cd /path/to/project
-python3 <promentor-skill>/scripts/serve.py          # 启动并打开浏览器
-python3 <promentor-skill>/scripts/serve.py status   # 查看运行进程
-python3 <promentor-skill>/scripts/serve.py stop     # 停止
+python3 <promentor-skill>/scripts/serve.py          # start and open the browser
+python3 <promentor-skill>/scripts/serve.py status   # running process
+python3 <promentor-skill>/scripts/serve.py stop     # stop
 ```
 
-## 命令速查
+## Commands
 
-| 命令 | 说明 |
+| Command | What it does |
 |------|------|
-| `/promentor init` | 分析项目，生成课程 |
-| `/promentor` | 课程面板（目录 + 进度） |
-| `/promentor learn <ch>` | 进入指定 Chapter 学习 |
-| `/promentor test` | 运行行为测试 |
-| `/promentor hint` | 动态生成分层提示 |
-| `/promentor submit` | 正式提交，锁定成绩 |
-| `/promentor review` | 对比实现 vs 原始源码 |
-| `/promentor progress` | 查看总进度 |
-| `/promentor dashboard` | 课程仪表盘（完成度 + 当前学习 + 内容完整性） |
+| `/promentor init` | Analyze the project and generate the course |
+| `/promentor` | Course panel (outline + progress) |
+| `/promentor learn <ch>` | Enter a chapter |
+| `/promentor test` | Run behavior tests |
+| `/promentor hint` | Layered hints for the current error |
+| `/promentor submit` | Official submit and lock the score |
+| `/promentor review` | Diff your work against the original source |
+| `/promentor progress` | Overall progress |
+| `/promentor dashboard` | Web dashboard (completion + current chapter + completeness) |
 
-## 学习模型
+## Learning model
 
 ```
-Learn Concept     （AI 讲解讲义）
+Learn Concept     (AI teaches the lecture)
     ↓
-Read Source Code  （AI 带你读标注过的源码）
+Read Source Code  (AI walks the annotated source)
     ↓
-Implement Lab     （手写核心逻辑）
+Implement Lab     (you write the core logic)
     ↓
-Run Tests         （/promentor test）
+Run Tests         (/promentor test)
     ↓
-Submit & Review   （/promentor submit → /promentor review）
+Submit & Review   (/promentor submit → /promentor review)
     ↓
 Master System Design
 ```
 
-## 为什么是 ProMentor
+## Why ProMentor
 
-- **比直接读源码有路线**：不是随机跳转，是有依赖关系的阶梯式学习路径
-- **比视频课深入**：不是看别人写代码，是自己亲手实现核心逻辑
-- **比博客系统化**：不是碎片化知识点，是完整理解一个系统的设计哲学
-- **AI 原生**：课程由 AI 生成、AI 讲解、AI 判题、AI Review。零内容生产成本。
+- **A path, not a random walk through the repo:** chapters have dependencies
+- **Deeper than a video:** you implement the core, you do not watch someone else type
+- **More systematic than a blog:** one system's design philosophy, not scattered tips
+- **AI-native:** generate, teach, grade, review. Zero manual content production

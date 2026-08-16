@@ -1,0 +1,103 @@
+{
+  "project": "mini-router",
+  "language": "python",
+  "generated_at": "2026-08-15T00:00:00Z",
+  "chapters": [
+    {
+      "id": "ch01-static-routes",
+      "title": "Static routes and exact matching",
+      "difficulty": "easy",
+      "prerequisites": [],
+      "learning_goals": [
+        "See the routing table as a (method, path) → handler map",
+        "Use a dict for O(1) exact lookup instead of scanning strings",
+        "Normalize paths: trailing slashes and method case"
+      ],
+      "source_files": [
+        "mini_router/router.py:11-20",
+        "mini_router/router.py:49-71"
+      ],
+      "lab_interface": {
+        "package": "router",
+        "exports": ["Router", "Router.add_route", "Router.find_route"]
+      }
+    },
+    {
+      "id": "ch02-path-params",
+      "title": "Path parameters: a rule is not a literal",
+      "difficulty": "mid",
+      "prerequisites": ["ch01-static-routes"],
+      "learning_goals": [
+        "Split paths into segments instead of comparing the whole string",
+        "Treat :id as a capture rule, not something you == against the request",
+        "Keep exact matching for static routes"
+      ],
+      "source_files": [
+        "mini_router/router.py:11-13",
+        "mini_router/router.py:57-64",
+        "mini_router/router.py:110-125"
+      ],
+      "lab_interface": {
+        "package": "router",
+        "exports": ["Router.add_route", "Router.find_route"]
+      }
+    },
+    {
+      "id": "ch03-priority-wildcards",
+      "title": "Priority and wildcards",
+      "difficulty": "hard",
+      "prerequisites": ["ch02-path-params"],
+      "learning_goals": [
+        "Static segments beat params, params beat wildcards",
+        "Let *path capture the remaining segments",
+        "Use a specificity score to break ties"
+      ],
+      "source_files": [
+        "mini_router/router.py:66-86",
+        "mini_router/router.py:110-138"
+      ],
+      "lab_interface": {
+        "package": "router",
+        "exports": ["Router.find_route"]
+      }
+    },
+    {
+      "id": "ch04-middleware",
+      "title": "The middleware onion",
+      "difficulty": "mid",
+      "prerequisites": ["ch03-priority-wildcards"],
+      "learning_goals": [
+        "Wrap the handler in a middleware chain instead of copying cross-cutting logic",
+        "See why use() registration order is the reverse of wrap order",
+        "Return 404 on a miss instead of raising"
+      ],
+      "source_files": [
+        "mini_router/router.py:23-46",
+        "mini_router/router.py:88-107"
+      ],
+      "lab_interface": {
+        "package": "router",
+        "exports": ["Request", "Response", "Router.use", "Router.handle"]
+      }
+    },
+    {
+      "id": "ch05-assemble",
+      "title": "Assemble a runnable Mini Router",
+      "difficulty": "hard",
+      "prerequisites": ["ch04-middleware"],
+      "learning_goals": [
+        "Build a tiny HTTP API from the Router of the first four chapters",
+        "Adapt an HTTP request into Request / Response",
+        "Finish by running: python3 .promentor/main.py"
+      ],
+      "source_files": [
+        "mini_router/demo.py:9-30",
+        "mini_router/server.py:10-32"
+      ],
+      "lab_interface": {
+        "package": "app",
+        "exports": ["build_app", "dispatch", "run"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "chapter_id": "ch04-middleware",
+  "title": "The middleware onion",
+  "description": "Implement use() and handle(): look up the route, wrap middleware, return 404 on a miss.",
+  "language": "python",
+  "package": "router",
+  "files": [
+    {
+      "path": "router.py",
+      "description": "Request/Response are given; fill in Router.use and Router.handle, and keep find_route"
+    }
+  ],
+  "interface": {
+    "types": [
+      {
+        "name": "Request",
+        "kind": "class",
+        "doc": "method, path, params, body. handle writes params after lookup."
+      },
+      {
+        "name": "Response",
+        "kind": "class",
+        "doc": "status, body, headers."
+      },
+      {
+        "name": "Router",
+        "kind": "class",
+        "doc": "Full router: lookup + middleware + handle"
+      }
+    ],
+    "functions": [
+      {
+        "signature": "def use(self, middleware) -> None",
+        "doc": "Register middleware. middleware(request, nxt) -> Response."
+      },
+      {
+        "signature": "def handle(self, request: Request) -> Response",
+        "doc": "Look up, write params, run the onion. A miss returns status=404, body='not found'."
+      }
+    ]
+  },
+  "test_command": "python3 {chapter_dir}/lab_test.py",
+  "notes": "Keep Request/Response field names. 404 does not run middleware. Bind loop variables in closures."
+}

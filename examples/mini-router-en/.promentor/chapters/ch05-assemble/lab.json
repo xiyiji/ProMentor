@@ -1,0 +1,40 @@
+{
+  "chapter_id": "ch05-assemble",
+  "title": "Assemble a runnable Mini Router",
+  "description": "Register the demo routes and logger with the provided Router. Implement dispatch and run.",
+  "language": "python",
+  "package": "app",
+  "files": [
+    {
+      "path": "app.py",
+      "description": "Student work: build_app / dispatch / run"
+    },
+    {
+      "path": "router.py",
+      "description": "Course-provided reference Router. Do not edit."
+    },
+    {
+      "path": "server.py",
+      "description": "Course-provided HTTP adapter. Do not edit."
+    }
+  ],
+  "interface": {
+    "types": [],
+    "functions": [
+      {
+        "signature": "def build_app() -> Router",
+        "doc": "Register GET /, GET /users/:id, GET /files/*path, POST /echo, and use a logger that sets X-Path."
+      },
+      {
+        "signature": "def dispatch(router, method: str, path: str, body: str = '') -> Response",
+        "doc": "Build a Request and call router.handle."
+      },
+      {
+        "signature": "def run(router, host: str = '127.0.0.1', port: int = 8000) -> None",
+        "doc": "Start the HTTP server via server.run."
+      }
+    ]
+  },
+  "test_command": "python3 {chapter_dir}/lab_test.py",
+  "notes": "Do not edit router.py / server.py. Run entry: python3 .promentor/main.py"
+}
