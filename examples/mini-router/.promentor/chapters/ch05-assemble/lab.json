@@ -1,0 +1,40 @@
+{
+  "chapter_id": "ch05-assemble",
+  "title": "组装可运行的 Mini Router",
+  "description": "用提供的 Router 注册演示路由与 logger，实现 dispatch 与 run。",
+  "language": "python",
+  "package": "app",
+  "files": [
+    {
+      "path": "app.py",
+      "description": "学生实现：build_app / dispatch / run"
+    },
+    {
+      "path": "router.py",
+      "description": "课程提供的参考 Router，不要修改"
+    },
+    {
+      "path": "server.py",
+      "description": "课程提供的 HTTP 适配器，不要修改"
+    }
+  ],
+  "interface": {
+    "types": [],
+    "functions": [
+      {
+        "signature": "def build_app() -> Router",
+        "doc": "注册 GET /、GET /users/:id、GET /files/*path、POST /echo，并 use logger（设置 X-Path）。"
+      },
+      {
+        "signature": "def dispatch(router, method: str, path: str, body: str = '') -> Response",
+        "doc": "构造 Request 并调用 router.handle。"
+      },
+      {
+        "signature": "def run(router, host: str = '127.0.0.1', port: int = 8000) -> None",
+        "doc": "调用 server.run 启动 HTTP 服务。"
+      }
+    ]
+  },
+  "test_command": "python3 {chapter_dir}/lab_test.py",
+  "notes": "不要改 router.py / server.py。运行入口：python3 .promentor/main.py"
+}

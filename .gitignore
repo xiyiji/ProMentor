@@ -13,7 +13,8 @@ __pycache__/
 /dashboard/public/prom-data/
 /dashboard/.prom-data-stash/
 
-.promentor
+# 项目根目录下本地生成的课程数据；示范课 examples/**/.promentor/ 入库
+/.promentor
 promentor.zip
 
 # Release 打包输出（make release 生成，上传 GitHub Releases）

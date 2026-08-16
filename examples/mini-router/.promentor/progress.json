@@ -1,0 +1,36 @@
+{
+  "project_name": "mini-router",
+  "current_chapter": null,
+  "chapters": {
+    "ch01-static-routes": {
+      "status": "not_started",
+      "score": 0,
+      "attempts": 0,
+      "hint_level_reached": 0
+    },
+    "ch02-path-params": {
+      "status": "not_started",
+      "score": 0,
+      "attempts": 0,
+      "hint_level_reached": 0
+    },
+    "ch03-priority-wildcards": {
+      "status": "not_started",
+      "score": 0,
+      "attempts": 0,
+      "hint_level_reached": 0
+    },
+    "ch04-middleware": {
+      "status": "not_started",
+      "score": 0,
+      "attempts": 0,
+      "hint_level_reached": 0
+    },
+    "ch05-assemble": {
+      "status": "not_started",
+      "score": 0,
+      "attempts": 0,
+      "hint_level_reached": 0
+    }
+  }
+}

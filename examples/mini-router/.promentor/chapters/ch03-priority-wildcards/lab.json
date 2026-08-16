@@ -1,0 +1,34 @@
+{
+  "chapter_id": "ch03-priority-wildcards",
+  "title": "优先级与通配符",
+  "description": "实现静态 > 参数 > 通配符的消歧，以及 *path 捕获剩余段。",
+  "language": "python",
+  "package": "router",
+  "files": [
+    {
+      "path": "router.py",
+      "description": "带优先级与通配符的完整查找"
+    }
+  ],
+  "interface": {
+    "types": [
+      {
+        "name": "Router",
+        "kind": "class",
+        "doc": "支持静态、:param、*wildcard，并按 specificity 消歧"
+      }
+    ],
+    "functions": [
+      {
+        "signature": "def add_route(self, method: str, path: str, handler) -> None",
+        "doc": "注册静态、:param 或 *wildcard 路由。"
+      },
+      {
+        "signature": "def find_route(self, method: str, path: str) -> tuple",
+        "doc": "返回最具体的 (handler, params)。静态精确匹配优先于动态打分。"
+      }
+    ]
+  },
+  "test_command": "python3 {chapter_dir}/lab_test.py",
+  "notes": "不要用 if path == '/users/new' 这类补丁消歧。用段类型打分或等价规则。"
+}
