@@ -1,0 +1,34 @@
+{
+  "chapter_id": "ch01-static-routes",
+  "title": "静态路由与精确匹配",
+  "description": "实现只支持精确路径的 Router：按 (method, path) 注册和查找。",
+  "language": "python",
+  "package": "router",
+  "files": [
+    {
+      "path": "router.py",
+      "description": "Router.add_route / find_route 的静态实现"
+    }
+  ],
+  "interface": {
+    "types": [
+      {
+        "name": "Router",
+        "kind": "class",
+        "doc": "HTTP 路由器。本章只要求静态精确匹配。"
+      }
+    ],
+    "functions": [
+      {
+        "signature": "def add_route(self, method: str, path: str, handler) -> None",
+        "doc": "注册一条静态路由。method 大小写不敏感；`/users/` 与 `/users` 视为同一路径。"
+      },
+      {
+        "signature": "def find_route(self, method: str, path: str) -> tuple",
+        "doc": "查找路由。命中返回 (handler, {})；未命中返回 (None, {})。"
+      }
+    ]
+  },
+  "test_command": "python3 {chapter_dir}/lab_test.py",
+  "notes": "不要解析 :param。未匹配时返回 (None, {})，不要抛异常。"
+}

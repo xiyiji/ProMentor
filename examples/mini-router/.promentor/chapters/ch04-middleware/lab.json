@@ -1,0 +1,44 @@
+{
+  "chapter_id": "ch04-middleware",
+  "title": "中间件洋葱模型",
+  "description": "实现 use() 与 handle()：查找路由、包裹中间件、未匹配返回 404。",
+  "language": "python",
+  "package": "router",
+  "files": [
+    {
+      "path": "router.py",
+      "description": "Request/Response 已给出；补全 Router.use 与 Router.handle，并保留 find_route"
+    }
+  ],
+  "interface": {
+    "types": [
+      {
+        "name": "Request",
+        "kind": "class",
+        "doc": "method, path, params, body。params 由 handle 在查找后写入。"
+      },
+      {
+        "name": "Response",
+        "kind": "class",
+        "doc": "status, body, headers。"
+      },
+      {
+        "name": "Router",
+        "kind": "class",
+        "doc": "完整路由器：查找 + 中间件 + handle"
+      }
+    ],
+    "functions": [
+      {
+        "signature": "def use(self, middleware) -> None",
+        "doc": "登记中间件。middleware(request, nxt) -> Response。"
+      },
+      {
+        "signature": "def handle(self, request: Request) -> Response",
+        "doc": "查找、写入 params、按洋葱顺序调用。未匹配返回 status=404、body='not found'。"
+      }
+    ]
+  },
+  "test_command": "python3 {chapter_dir}/lab_test.py",
+  "notes": "Request/Response 字段名必须保持。404 不经过中间件。闭包注意绑定循环变量。"
+}

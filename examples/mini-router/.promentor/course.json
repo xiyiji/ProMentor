@@ -1,0 +1,103 @@
+{
+  "project": "mini-router",
+  "language": "python",
+  "generated_at": "2026-08-15T00:00:00Z",
+  "chapters": [
+    {
+      "id": "ch01-static-routes",
+      "title": "静态路由与精确匹配",
+      "difficulty": "easy",
+      "prerequisites": [],
+      "learning_goals": [
+        "理解路由表是 (method, path) → handler 的映射",
+        "用字典做 O(1) 精确查找，而不是遍历字符串",
+        "处理路径规范化：尾斜杠与大小写 method"
+      ],
+      "source_files": [
+        "mini_router/router.py:11-20",
+        "mini_router/router.py:49-71"
+      ],
+      "lab_interface": {
+        "package": "router",
+        "exports": ["Router", "Router.add_route", "Router.find_route"]
+      }
+    },
+    {
+      "id": "ch02-path-params",
+      "title": "路径参数：规则不是字面量",
+      "difficulty": "mid",
+      "prerequisites": ["ch01-static-routes"],
+      "learning_goals": [
+        "把路径拆成 segment，而不是整串比较",
+        "理解 :id 是捕获规则，不能和请求段做 ==",
+        "同时保留静态路由的精确匹配"
+      ],
+      "source_files": [
+        "mini_router/router.py:11-13",
+        "mini_router/router.py:57-64",
+        "mini_router/router.py:110-125"
+      ],
+      "lab_interface": {
+        "package": "router",
+        "exports": ["Router.add_route", "Router.find_route"]
+      }
+    },
+    {
+      "id": "ch03-priority-wildcards",
+      "title": "优先级与通配符",
+      "difficulty": "hard",
+      "prerequisites": ["ch02-path-params"],
+      "learning_goals": [
+        "静态段优先于参数段，参数段优先于通配符",
+        "实现 *path 捕获剩余 segment",
+        "理解 specificity 分数如何消歧"
+      ],
+      "source_files": [
+        "mini_router/router.py:66-86",
+        "mini_router/router.py:110-138"
+      ],
+      "lab_interface": {
+        "package": "router",
+        "exports": ["Router.find_route"]
+      }
+    },
+    {
+      "id": "ch04-middleware",
+      "title": "中间件洋葱模型",
+      "difficulty": "mid",
+      "prerequisites": ["ch03-priority-wildcards"],
+      "learning_goals": [
+        "把 handler 包进中间件链，而不是在每个 handler 里复制横切逻辑",
+        "理解 use() 的注册顺序与实际执行顺序相反的原因",
+        "未匹配路由返回 404，而不是抛异常"
+      ],
+      "source_files": [
+        "mini_router/router.py:23-46",
+        "mini_router/router.py:88-107"
+      ],
+      "lab_interface": {
+        "package": "router",
+        "exports": ["Request", "Response", "Router.use", "Router.handle"]
+      }
+    },
+    {
+      "id": "ch05-assemble",
+      "title": "组装可运行的 Mini Router",
+      "difficulty": "hard",
+      "prerequisites": ["ch04-middleware"],
+      "learning_goals": [
+        "用前四章的 Router 拼出一个最小 HTTP API",
+        "把 HTTP 请求适配成 Request / Response",
+        "学完即能跑：python3 .promentor/main.py"
+      ],
+      "source_files": [
+        "mini_router/demo.py:9-30",
+        "mini_router/server.py:10-32"
+      ],
+      "lab_interface": {
+        "package": "app",
+        "exports": ["build_app", "dispatch", "run"]
+      }
+    }
+  ]
+}

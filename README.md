@@ -6,6 +6,24 @@ ProMentor 是一个 **AI Coding Agent Skill**。装上它，你的 AI 编程助�
 
 **学的不是算法题，是一个真实系统的架构设计能力。**
 
+## 示范课
+
+仓库里有一门手写的完整课程，用来示范「好课长什么样」，也当作生成质量的标尺：
+
+[`examples/mini-router`](examples/mini-router) — 一个不到 200 行的 Python HTTP 路由器（静态路由、`:param`、通配符、中间件），五章讲义 + Lab + 行为测试 + 学生脚手架。
+
+![示范课怎么学](examples/mini-router/docs/learning-loop.png)
+
+![课程总览](examples/mini-router/docs/course-overview.png)
+
+```bash
+cd examples/mini-router
+python3 validate_course.py          # 空实现必须失败，参考实现必须通过
+python3 .promentor/chapters/ch01-static-routes/lab_test.py
+```
+
+在支持 `/promentor` 的 Agent 里打开 `examples/mini-router`，然后 `/promentor learn ch01`。更多截图见 [示范课 README](examples/mini-router)。
+
 ## 安装
 
 ### DSH Web GUI 内置 Dashboard（非DeepSeek Harness不需要看）
@@ -30,7 +48,7 @@ bash dsh-plugin/install.sh
 
 ### 从release下载zip
 
-1. 前往 [Releases](https://github.com/Lyn-77/ProMentor/releases) 下载最新 `promentor.zip`
+1. 前往 [Releases](https://github.com/xiyiji/ProMentor/releases) 下载最新 `promentor.zip`
 
 2. 解压后把 `promentor/` 放到 `.{YourAgent}/skills/`
 

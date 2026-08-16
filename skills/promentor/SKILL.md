@@ -53,6 +53,8 @@ description: 把任意项目转成 MIT 风格的动手工程课程：生成大�
 
 **完整字段规范（JSON 示例、逐字段说明）**：读写课程数据前阅读 `references/data-format.md`。
 
+**质量标尺**：仓库 `examples/mini-router/` 是一门手写示范课（五章 + 可运行入口 + 行为测试）。`/promentor init` 生成的课程应达到同一完整度：每章有 lecture / source / lab / 能跑的测试，空脚手架失败，参考实现通过。生成后可用 `python3 examples/mini-router/validate_course.py` 对照检查思路；不要把该示范课的讲义原文复制到其他项目。
+
 示例语言仅作演示，数据格式规则与项目语言无关。
 
 ## 2. 命令实现
